@@ -5,7 +5,12 @@
         "bsp.h": "c",
         "em_device.h": "c",
         "segmentlcd.h": "c",
-        "em_gpio.h": "c"
+        "em_gpio.h": "c",
+        "cmath": "c",
+        "*.tcc": "c",
+        "cinttypes": "c",
+        "cstdlib": "c",
+        "string.h": "c"
     },
     "cortex-debug.gdbPath.linux": "/usr/bin/gdb-multiarch"
 }

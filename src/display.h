@@ -16,7 +16,9 @@ typedef struct pixel
     uint8_t y;
 } pixel;
 
-void drawLine(map* map,pixel startPosition,pixel endPosition);
+void drawLine(map* map,pixel startPosition,pixel endPosition,uint8_t value);
+
+void setPixel(map* map,pixel position,uint8_t value);
 
 void displayMap(map* map);
 

@@ -6,22 +6,15 @@
 #include "em_usart.h"
 #include "em_lcd.h"
 #include "segmentlcd.h"
-#include "segmentlcd_individual.h"
 #include "display.h"
 
 #define SLEEP 200
 
-typedef enum _segment { a, b, c, d, e, f, g, h, l, m } segment;
 typedef enum _direction { up, down, left, right } direction;
 
 volatile uint32_t  msTicks; /* counts 1ms timeTicks */
 volatile direction dir      = right;
 volatile direction prev_dir = right;
-
-SegmentLCD_UpperCharSegments_TypeDef
-    upperCharSegments[SEGMENT_LCD_NUM_OF_UPPER_CHARS];
-SegmentLCD_LowerCharSegments_TypeDef
-    lowerCharSegments[SEGMENT_LCD_NUM_OF_LOWER_CHARS];
 
 void SysTick_Handler(void)
 {
@@ -99,12 +92,28 @@ int main()
                ,{0,0,1,0,1,0,1,0,1,0,1,0,1,0,1}
                ,{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}}};*/
     
-    drawLine(&map,(pixel){0,4},(pixel){10,4});
-    drawLine(&map,(pixel){10,4},(pixel){10,0});
-    drawLine(&map,(pixel){10,0},(pixel){14,0});
+    drawLine(&map,(pixel){0,0},(pixel){0,2},1);
+    drawLine(&map,(pixel){2,2},(pixel){2,4},1);
+    drawLine(&map,(pixel){0,2},(pixel){2,2},1);
+    drawLine(&map,(pixel){0,0},(pixel){2,0},1);
+    drawLine(&map,(pixel){0,4},(pixel){2,4},1);
+
+    drawLine(&map,(pixel){4,0},(pixel){4,4},1);
+    drawLine(&map,(pixel){4,0},(pixel){6,0},1);
+    drawLine(&map,(pixel){4,2},(pixel){6,2},1);
+    drawLine(&map,(pixel){4,4},(pixel){6,4},1);
+
+    drawLine(&map,(pixel){6,0},(pixel){6,4},1);
+    drawLine(&map,(pixel){8,0},(pixel){8,4},1);
+    drawLine(&map,(pixel){6,2},(pixel){8,2},1);
+
+    drawLine(&map,(pixel){10,0},(pixel){10,2},1);
+    drawLine(&map,(pixel){12,0},(pixel){12,4},1);
+    drawLine(&map,(pixel){10,2},(pixel){12,2},1);
+    
     displayMap(&map);
     // test
-    int num = 0, seg = a;
+    int num = 0;
     while (1) {
         SegmentLCD_Number(num);
         num++;

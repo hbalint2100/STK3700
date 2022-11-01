@@ -8,9 +8,9 @@
     [ 
             |seg|
         0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+        0 x 0 x 0 x 0 x 0 x 0 x 0 x 0
         1 1 1 0 0 0 0 0 0 0 0 0 0 0 0
-        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+        0 x 0 x 0 x 0 x 0 x 0 x 0 x 0
         0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
        | seg |
     ]
@@ -19,33 +19,46 @@
 typedef enum _segment { a, b, c, d, e, f, g, h, j, k, m } segment;
 SegmentLCD_LowerCharSegments_TypeDef lowerCharSegments[SEGMENT_LCD_NUM_OF_LOWER_CHARS];
 
-void drawLine(map* map,pixel startPosition,pixel endPosition)
+void setPixel(map* map,pixel position,uint8_t value)
 {
+    if(!map)
+    {
+        return;
+    }
+    map->pixels[position.y][position.x] = value;
+}
+
+void drawLine(map* map,pixel startPosition,pixel endPosition,uint8_t value)
+{
+    if(!map)
+    {
+        return;
+    }
     bool vertical = endPosition.x==startPosition.x;
     bool horizontal = endPosition.y==startPosition.y;
-    if((abs(endPosition.x-startPosition.x)>2||abs(endPosition.y-startPosition.y)>2)&&(vertical||(horizontal))) //check if it can be represented as a segment
+    if((abs(endPosition.x-startPosition.x)>0||abs(endPosition.y-startPosition.y)>0)&&(vertical||(horizontal))) //check if it can be represented as a segment
     {
         
         if(vertical)
         {
             int8_t dir = endPosition.y-startPosition.y>0? 1:-1;
-            for(int8_t i = startPosition.y;i!=endPosition.y&&i>=0&&i<HEIGHT;i+=dir)
+            for(int8_t i = startPosition.y;i!=endPosition.y+dir&&i>=0&&i<HEIGHT;i+=dir)
             {
-                map->pixels[i][startPosition.x] = 1;
+                map->pixels[i][startPosition.x] = value;
             }
         }
         else if(horizontal)
         {
             int8_t dir = endPosition.x-startPosition.x>0? 1:-1;
-            for(int8_t i = startPosition.x;i!=endPosition.x&&i>=0&&i<WIDTH;i+=dir)
+            for(int8_t i = startPosition.x;i!=endPosition.x+dir&&i>=0&&i<WIDTH;i+=dir)
             {
-                map->pixels[startPosition.y][i] = 1;
+                map->pixels[startPosition.y][i] = value;
             }
         }
     }
 }
 
-__STATIC_INLINE void setSegmentByPixel(pixel startPixel,pixel endPixel)
+void setSegmentByPixel(pixel startPixel,pixel endPixel)
 {
     if(startPixel.x<WIDTH-2)
     {
@@ -112,6 +125,10 @@ __STATIC_INLINE void setSegmentByPixel(pixel startPixel,pixel endPixel)
 
 void displayMap(map* map)
 {
+    if(!map)
+    {
+        return;
+    }
     memset(lowerCharSegments,0,sizeof(lowerCharSegments));//clear previous segment setup
     for(uint8_t i = 0; i < HEIGHT; i++)
     {
