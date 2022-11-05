@@ -130,9 +130,9 @@ void displayMap(map* map)
         return;
     }
     memset(lowerCharSegments,0,sizeof(lowerCharSegments));//clear previous segment setup
-    for(uint8_t i = 0; i < HEIGHT; i++)
+    for(uint8_t i = 0; i < HEIGHT; i+=2)
     {
-        for(uint8_t j = 0; j < WIDTH; j++)
+        for(uint8_t j = 0; j < WIDTH; j+=2)
         {
             if(i+2<HEIGHT&&map->pixels[i][j]&&map->pixels[i+1][j]&&map->pixels[i+2][j])
             {

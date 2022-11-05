@@ -85,14 +85,14 @@ int main()
     }
     /* Enable LCD without voltage boost */
     SegmentLCD_Init(false);
-    map map={{0}};
-    /*map map = {{{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+    //map map={{0}};
+    map map = {{{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
                ,{1,0,1,0,1,0,1,0,1,0,1,0,1,0,1}
                ,{0,0,1,1,1,1,1,1,1,1,1,1,1,1,1}
                ,{0,0,1,0,1,0,1,0,1,0,1,0,1,0,1}
-               ,{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}}};*/
+               ,{0,0,0,0,0,0,0,0,0,0,0,0,0,1,1}}};
     
-    drawLine(&map,(pixel){0,0},(pixel){0,2},1);
+    /*drawLine(&map,(pixel){0,0},(pixel){0,2},1);
     drawLine(&map,(pixel){2,2},(pixel){2,4},1);
     drawLine(&map,(pixel){0,2},(pixel){2,2},1);
     drawLine(&map,(pixel){0,0},(pixel){2,0},1);
@@ -109,7 +109,7 @@ int main()
 
     drawLine(&map,(pixel){10,0},(pixel){10,2},1);
     drawLine(&map,(pixel){12,0},(pixel){12,4},1);
-    drawLine(&map,(pixel){10,2},(pixel){12,2},1);
+    drawLine(&map,(pixel){10,2},(pixel){12,2},1);*/
     
     displayMap(&map);
     // test
